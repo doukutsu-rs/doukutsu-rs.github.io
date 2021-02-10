@@ -19,7 +19,7 @@ post = "post/:slug"
 [[params.downloads_nightly]]
 platform = "Windows x64"
 appveyor_job_name = "windows-x64"
-english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_win64.zip?branch=master&job=windows-x64https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_win64.zip?branch=master&job=windows-x64"
+english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_win64.zip?branch=master&job=windows-x64"
 
 [[params.downloads_nightly]]
 platform = "Linux x64"
