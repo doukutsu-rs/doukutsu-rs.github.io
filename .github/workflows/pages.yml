@@ -3,7 +3,7 @@ name: github pages
 on:
   push:
     branches:
-      - master  # Set a branch to deploy
+      - master # Set a branch to deploy
 
 jobs:
   deploy:
@@ -11,13 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          submodules: true # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@latest
         with:
-          hugo-version: 'latest'
+          hugo-version: "latest"
           extended: true
 
       - name: Build
@@ -29,7 +29,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
 
-- name: Setup Hugo
-  uses: peaceiris/actions-hugo@latest
-  with:
-    hugo-version: 'latest'
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@latest
+        with:
+          hugo-version: "latest"
