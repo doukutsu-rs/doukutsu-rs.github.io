@@ -23,15 +23,21 @@ english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts
 
 [[params.downloads_nightly]]
 platform = "Linux x64"
+appveyor_job_name = "linux-x64"
+english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_linux.zip?branch=master&job=linux-x64"
 
 [[params.downloads_nightly]]
 platform = "Android ARM64"
 
 [[params.downloads_nightly]]
 platform = "macOS x64 (Intel Macs)"
+appveyor_job_name = "mac-x64"
+english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_mac-intel.zip?branch=master&job=mac-x64"
 
 [[params.downloads_nightly]]
 platform = "macOS ARM64 (M1 Macs)"
+appveyor_job_name = "mac-arm64"
+english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_mac-m1.zip?branch=master&job=mac-arm64"
 
 [[params.menu]]
 name = "blog"
