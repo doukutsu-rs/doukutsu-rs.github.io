@@ -1,21 +1,13 @@
 baseURL = "https://doukutsu-rs.github.io/"
 languageCode = "en-us"
-theme = "drs"
 title = "doukutsu-rs"
-#googleAnalytics = "UA-XXXXXXXXX-X"
-copyright = "© 2020-2021 doukutsu-rs contributors"
+copyright = "© 2020-2023 doukutsu-rs contributors"
 description = "A Rust reimplementation of Cave Story."
 
-[taxonomies]
-category = "categories"
-series = "series"
-tag = "tags"
+disableKinds = ["taxonomy", "terms", "RSS"]
+ignoreErrors = ["error-disable-taxonomy"]
 
 [params]
-
-[Permalinks]
-post = "post/:slug"
-
 [[params.downloads_nightly]]
 platform = "Windows x64"
 appveyor_job_name = "windows-x64"
@@ -38,14 +30,6 @@ english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts
 platform = "macOS ARM64 (M1 Macs)"
 appveyor_job_name = "mac-arm64"
 english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_mac-m1.zip?branch=master&job=mac-arm64"
-
-[[params.menu]]
-name = "blog"
-url = "post/"
-
-[[params.menu]]
-name = "post series"
-url = "series/"
 
 
 [privacy]

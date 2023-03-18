@@ -1,0 +1,11 @@
+{{ $sassOpts := (dict "targetPath" "styles.min.css" "outputStyle" "compressed" ) }}
+{{ $sass := resources.Get "sass/drs.scss" }}
+{{ $style := $sass | resources.ToCSS $sassOpts }}
+<link rel="stylesheet" href="{{ $style.Permalink }}" />
+
+<link
+  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/github-gist.css"
+  rel="stylesheet"
+/>
+
+{{ template "_internal/google_analytics_async.html" . }}
