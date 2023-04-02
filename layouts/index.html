@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html
+  class=""
+  lang="{{ .Site.LanguageCode }}"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8"/>
+
+    {{ partial "meta.html" . }}
+
+    <title>{{ .Site.Title }}</title>
+    <link rel="canonical" href="{{ .Permalink }}"/>
+    {{ $sitetitle := .Site.Title }}
+    {{ with .OutputFormats.Get "RSS" }}
+      <link
+      href="{{ .RelPermalink }}"
+      rel="alternate"
+      type="application/rss+xml"
+      title="{{ $sitetitle }}"
+/>
+    {{ end }}
+    {{ partial "head_includes.html" . }}
+  </head>
+  <body
+    lang="{{ .Site.LanguageCode }}"
+  >
+    <section class="hero is-large is-primary cs-background">
+      <div class="hero-body has-text-centered">
+        <div class="container">
+          <p class="title">
+            doukutsu-rs
+          </p>
+          <p class="subtitle">
+            A Cave Story engine remake written in Rust.
+          </p>
+
+          <div class="buttons is-justify-content-center">
+            <a class="button is-success" href="#downloads">Downloads</a>
+            <a class="button is-primary" href="https://doukutsu-rs.gitbook.io/docs">Documentation</a>
+            <a class="button is-dark" href="https://github.com/doukutsu-rs/doukutsu-rs">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-three-fifths is-offset-one-fifth">
+            <p style="font-size: 1.4rem" class="mb-5">
+              doukutsu-rs initially started as a Rust learning project, but eventually evolved into semi-playable and compatible reimplementation of the engine of Cave Story - a great indie game created by <a href="https://studiopixel.jp">Studio Pixel</a>.
+            </p>
+            <p style="font-size: 1.4rem">
+              The project aims to deliver a decent alternative for the original engine, improving it with features such as multiplayer support, powerful Lua API (no more unportable ASM-hack based mods), and independent framerate (so the game runs at original speed and looks smooth regardless of monitor refresh rate).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="downloads">
+      <div class="container">
+        <h2 class="mb-5">Downloads</h2>
+
+        <h3>Nightly</h3>
+        <p class="mt-2 mb-5">Fresh doukutsu-rs builds with freeware game data, compiled on each commit of <code>master</code> branch.</p>
+
+        <div class="columns is-multiline">
+          {{ range .Site.Params.downloads_nightly }}
+            <div class="column is-one-third">
+              <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title">{{ .platform }}</p>
+                </header>
+
+                <div class="card-content">
+                  <div class="content">
+                    {{ if .appveyor_job_name }}
+                      <div id="avinfo-{{ .appveyor_job_name }}" class="mb-5">
+                        <strong>Version: </strong>
+                        <span class="version">...</span><br/>
+
+                        <strong>Git commit ID: </strong>
+                        <span class="commit">...</span><br/>
+                      </div>
+                    {{ end }}
+
+                    <div class="buttons">
+                      {{ if .english_link }}
+                        <a class="button is-primary" href="{{ .english_link }}">With English game data</a>
+                      {{ end }}
+
+                      {{ if .japanese_link }}
+                        <a class="button is-primary" href="{{ .japanese_link }}">With Japanese game data</a>
+                      {{ end }}
+
+                      {{ if (and (not .english_link) (not .japanese_link)) }}
+                        <p>No prebuilts for this platform yet.</p>
+                      {{ end }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+
+    <script>
+      (async () => {
+        const req = await fetch("https://ci.appveyor.com/api/projects/alula/doukutsu-rs/branch/master", {
+          headers: {
+            "content-type": "application/json"
+          }
+        });
+        const data = await req.json();
+        console.log(data);
+
+        for (const job of data.build.jobs) {
+          console.log("job:", job);
+
+          const el = document.querySelector(`#avinfo-${job.name}`);
+          if (el) {
+            const verEl = el.querySelector(".version");
+            if (verEl) {
+              verEl.innerText = data.build.version
+            }
+
+            const commEl = el.querySelector(".commit");
+            if (commEl) {
+              commEl.innerText = data.build.commitId;
+            }
+          }
+        }
+      })();
+    </script>
+
+    {{ partial "footer.html" . }}
+  </body>
+</html>
