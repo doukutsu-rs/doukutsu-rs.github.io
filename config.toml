@@ -4,32 +4,39 @@ title = "doukutsu-rs"
 copyright = "© 2020-2023 doukutsu-rs contributors"
 description = "A Rust reimplementation of Cave Story."
 
-disableKinds = ["taxonomy", "terms", "RSS"]
+disableKinds = ["taxonomy", "RSS"]
 ignoreErrors = ["error-disable-taxonomy"]
 
 [params]
 [[params.downloads_nightly]]
 platform = "Windows x64"
-appveyor_job_name = "windows-x64"
-english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_win64.zip?branch=master&job=windows-x64"
+job_name = "windows-x64"
+english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_windows-x64.zip"
+
+[[params.downloads_nightly]]
+platform = "Windows x32"
+job_name = "windows-x32"
+english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_windows-x32.zip"
 
 [[params.downloads_nightly]]
 platform = "Linux x64"
-appveyor_job_name = "linux-x64"
-english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_linux.zip?branch=master&job=linux-x64"
+job_name = "linux-x64"
+english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_linux-x64.zip"
 
 [[params.downloads_nightly]]
 platform = "Android ARM64"
+job_name = "android"
+english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_android.zip"
 
 [[params.downloads_nightly]]
 platform = "macOS x64 (Intel Macs)"
-appveyor_job_name = "mac-x64"
-english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_mac-intel.zip?branch=master&job=mac-x64"
+job_name = "mac-x64"
+english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_mac-x64.zip"
 
 [[params.downloads_nightly]]
 platform = "macOS ARM64 (M1 Macs)"
-appveyor_job_name = "mac-arm64"
-english_link = "https://ci.appveyor.com/api/projects/alula/doukutsu-rs/artifacts/doukutsu-rs_mac-m1.zip?branch=master&job=mac-arm64"
+job_name = "mac-arm64"
+english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_mac-arm64.zip"
 
 
 [privacy]

@@ -76,14 +76,16 @@
 
                 <div class="card-content">
                   <div class="content">
-                    {{ if .appveyor_job_name }}
-                      <div id="avinfo-{{ .appveyor_job_name }}" class="mb-5">
+                    {{ if .job_name }}
+<!--
+                      <div id="info-{{ .job_name }}" class="mb-5">
                         <strong>Version: </strong>
                         <span class="version">...</span><br/>
 
                         <strong>Git commit ID: </strong>
                         <span class="commit">...</span><br/>
                       </div>
+-->
                     {{ end }}
 
                     <div class="buttons">
@@ -107,35 +109,6 @@
         </div>
       </div>
     </section>
-
-    <script>
-      (async () => {
-        const req = await fetch("https://ci.appveyor.com/api/projects/alula/doukutsu-rs/branch/master", {
-          headers: {
-            "content-type": "application/json"
-          }
-        });
-        const data = await req.json();
-        console.log(data);
-
-        for (const job of data.build.jobs) {
-          console.log("job:", job);
-
-          const el = document.querySelector(`#avinfo-${job.name}`);
-          if (el) {
-            const verEl = el.querySelector(".version");
-            if (verEl) {
-              verEl.innerText = data.build.version
-            }
-
-            const commEl = el.querySelector(".commit");
-            if (commEl) {
-              commEl.innerText = data.build.commitId;
-            }
-          }
-        }
-      })();
-    </script>
 
     {{ partial "footer.html" . }}
   </body>
