@@ -77,7 +77,6 @@
                 <div class="card-content">
                   <div class="content">
                     {{ if .job_name }}
-<!--
                       <div id="info-{{ .job_name }}" class="mb-5">
                         <strong>Version: </strong>
                         <span class="version">...</span><br/>
@@ -85,19 +84,12 @@
                         <strong>Git commit ID: </strong>
                         <span class="commit">...</span><br/>
                       </div>
--->
                     {{ end }}
 
                     <div class="buttons">
-                      {{ if .english_link }}
-                        <a class="button is-primary" href="{{ .english_link }}">With English game data</a>
-                      {{ end }}
-
-                      {{ if .japanese_link }}
-                        <a class="button is-primary" href="{{ .japanese_link }}">With Japanese game data</a>
-                      {{ end }}
-
-                      {{ if (and (not .english_link) (not .japanese_link)) }}
+                      {{ if .link }}
+                        <a class="button is-primary link" href="{{ .link }}">Download</a>
+                      {{ else }}
                         <p>No prebuilts for this platform yet.</p>
                       {{ end }}
                     </div>
@@ -109,6 +101,52 @@
         </div>
       </div>
     </section>
+
+    <script>
+      async function setInfo(el, info) {
+        if (el) {
+          const verEl = el.querySelector('.version');
+          if (verEl) {
+            verEl.innerText = info.version
+          }
+
+          const commEl = el.querySelector('.commit');
+          if (commEl) {
+            commEl.innerText = info.commit;
+          }
+
+          const linkEl = el.parentNode.querySelector('.link');
+          if (linkEl) {
+            linkEl.href = info.link;
+          }
+        }
+      }
+      
+      (async() => {
+        const req = await fetch('{{ .Site.Params.metadata.nightly.link }}', {
+          headers: {
+            'content-type': 'application/json'
+          }
+        });
+        const data = await req.json();
+
+        for (const platform in data) {
+          const info = data[platform];
+          if (info.version !== undefined) {
+            const el = document.getElementById(`info-${platform}`);
+
+            setInfo(el, info);
+          } else {
+            for (const arch in info) {
+              const archInfo = info[arch];
+              const el = document.getElementById(`info-${platform}-${arch}`);
+
+              setInfo(el, archInfo);
+            }
+          }
+        }
+      })();
+    </script>
 
     {{ partial "footer.html" . }}
   </body>

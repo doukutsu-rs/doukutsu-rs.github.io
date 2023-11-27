@@ -8,35 +8,36 @@ disableKinds = ["taxonomy", "RSS"]
 ignoreErrors = ["error-disable-taxonomy"]
 
 [params]
+[params.metadata.nightly]
+link = "https://raw.githubusercontent.com/doukutsu-rs/metadata/master/metadata/nightly.json"
+
 [[params.downloads_nightly]]
 platform = "Windows x64"
-job_name = "windows-x64"
-english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_windows-x64.zip"
+job_name = "windows-x86_64"
+link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_windows-x64.zip"
 
 [[params.downloads_nightly]]
 platform = "Windows x32"
-job_name = "windows-x32"
-english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_windows-x32.zip"
+job_name = "windows-i686"
+link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_windows-x32.zip"
 
 [[params.downloads_nightly]]
 platform = "Linux x64"
-job_name = "linux-x64"
-english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_linux-x64.zip"
+job_name = "linux-x86_64"
+link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_linux-x64.zip"
 
 [[params.downloads_nightly]]
 platform = "Android ARM64"
-job_name = "android"
-english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_android.zip"
 
 [[params.downloads_nightly]]
 platform = "macOS x64 (Intel Macs)"
-job_name = "mac-x64"
-english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_mac-x64.zip"
+job_name = "macos-x64"
+link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_mac-x64.zip"
 
 [[params.downloads_nightly]]
 platform = "macOS ARM64 (M1 Macs)"
-job_name = "mac-arm64"
-english_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_mac-arm64.zip"
+job_name = "macos-arm64"
+link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_mac-arm64.zip"
 
 
 [privacy]
