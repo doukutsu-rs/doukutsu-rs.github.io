@@ -125,7 +125,7 @@
       (async() => {
         const req = await fetch('{{ .Site.Params.metadata.nightly.link }}', {
           headers: {
-            'content-type': 'application/json'
+            'Accept': 'application/json'
           }
         });
         const data = await req.json();
