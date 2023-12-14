@@ -28,6 +28,8 @@ link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukuts
 
 [[params.downloads_nightly]]
 platform = "Android ARM64"
+job_name = "android"
+link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_android.zip"
 
 [[params.downloads_nightly]]
 platform = "macOS x64 (Intel Macs)"
