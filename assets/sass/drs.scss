@@ -36,6 +36,7 @@ $text-strong: darken($text, 5);
 
 $link: $blue;
 $code: lighten($red, 8);
+$code-border-radius: 0.25em;
 
 $pagination-background-color: $grey-lighter;
 
@@ -201,4 +202,14 @@ h5 {
 
 h6 {
   font-size: 1.2rem;
+}
+
+code {
+  border-radius: $code-border-radius;
+}
+
+.commit {
+  code {
+    background: darken($grey-darker, 4);
+  }
 }

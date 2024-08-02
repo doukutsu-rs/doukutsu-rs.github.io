@@ -14,11 +14,11 @@
     {{ $sitetitle := .Site.Title }}
     {{ with .OutputFormats.Get "RSS" }}
       <link
-      href="{{ .RelPermalink }}"
-      rel="alternate"
-      type="application/rss+xml"
-      title="{{ $sitetitle }}"
-/>
+        href="{{ .RelPermalink }}"
+        rel="alternate"
+        type="application/rss+xml"
+        title="{{ $sitetitle }}"
+      />
     {{ end }}
     {{ partial "head_includes.html" . }}
   </head>
@@ -112,7 +112,7 @@
 
           const commEl = el.querySelector('.commit');
           if (commEl) {
-            commEl.innerText = info.commit;
+            commEl.innerHTML = "<code>" + info.commit.slice(0, 7) + "</code>";
           }
 
           const linkEl = el.parentNode.querySelector('.link');
