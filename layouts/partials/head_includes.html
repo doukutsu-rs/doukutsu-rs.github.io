@@ -1,6 +1,6 @@
 {{ $sassOpts := (dict "targetPath" "styles.min.css" "outputStyle" "compressed" ) }}
 {{ $sass := resources.Get "sass/drs.scss" }}
-{{ $style := $sass | resources.ToCSS $sassOpts }}
+{{ $style := $sass | css.Sass $sassOpts }}
 <link rel="stylesheet" href="{{ $style.Permalink }}" />
 
 <link rel="shortcut icon" sizes="48x48" href="/img/favicon.ico">
