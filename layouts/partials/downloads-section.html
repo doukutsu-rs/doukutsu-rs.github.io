@@ -1,0 +1,45 @@
+<div class="column is-one-third" id="downloads-{{ .channel }}-{{ or .platform.job_name .platform.platform_id }}">
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        {{ if .platform.icon }}
+          <svg class="icon" fill="currentColor">
+            <use xlink:href="img/icons/brand.svg#cib-{{ .platform.icon }}"></use>
+          </svg>
+        {{ end }}
+        {{ .platform.platform_name }}
+      </p>
+    </header>
+
+    <div class="card-content">
+      <div class="content">
+        {{ if or (not .fallback) (not .platform.platform_id)  }}
+          <div class="info" class="mb-5">
+            <strong>Version: </strong>
+            <span class="version">...</span><br/>
+
+            <div>
+              <strong>Git commit ID: </strong>
+              <span class="commit">...</span><br/>
+            </div>
+
+            <div>
+              <strong>Date: </strong>
+              <span class="date">...</span>
+            </div><br/>
+          </div>
+        {{ end }}
+
+        <div class="buttons">
+          {{ if and .platform.nightly_link .fallback }}
+            <a class="button is-primary link" href="{{ .platform.nightly_link }}">Download</a>
+          {{ else if not .fallback }}
+            <a class="button is-primary link is-loading" href="#">Loading</a>
+          {{ else }}
+            <p>No prebuilts for this platform yet.</p>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

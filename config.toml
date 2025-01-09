@@ -8,38 +8,57 @@ disableKinds = ["taxonomy", "RSS"]
 ignoreErrors = ["error-disable-taxonomy"]
 
 [params]
-[params.metadata.nightly]
-link = "https://raw.githubusercontent.com/doukutsu-rs/metadata/master/metadata/nightly.json"
+[params.downloads.nightly]
+metadata = "https://raw.githubusercontent.com/doukutsu-rs/metadata/master/metadata/nightly.json"
 
-[[params.downloads_nightly]]
-platform = "Windows x64"
+[params.downloads.stable]
+id = "stable"
+description = "Released rarely and really have no much diffs from a nightly builds."
+metadata = "https://raw.githubusercontent.com/doukutsu-rs/metadata/master/metadata/stable.json"
+fail_page = "https://github.com/doukutsu-rs/doukutsu-rs/releases/"
+
+[[params.downloads.platforms]]
+platform_name = "Windows x64"
 job_name = "windows-x86_64"
-link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_windows-x64.zip"
+icon = "windows"
+nightly_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_windows-x64.zip"
 
-[[params.downloads_nightly]]
-platform = "Windows x32"
+[[params.downloads.platforms]]
+platform_name = "Windows x32"
 job_name = "windows-i686"
-link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_windows-x32.zip"
+icon = "windows"
+nightly_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_windows-x32.zip"
 
-[[params.downloads_nightly]]
-platform = "Linux x64"
+[[params.downloads.platforms]]
+platform_name = "Linux x64"
 job_name = "linux-x86_64"
-link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_linux-x64.zip"
+icon = "linux"
+nightly_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_linux-x64.zip"
 
-[[params.downloads_nightly]]
-platform = "Android ARM64"
+[[params.downloads.platforms]]
+platform_name = "Android"
 job_name = "android"
-link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_android.zip"
+icon = "android-alt"
+nightly_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_android.zip"
 
-[[params.downloads_nightly]]
-platform = "macOS x64 (Intel Macs)"
+[[params.downloads.platforms]]
+platform_name = "macOS x64 (Intel Macs)"
 job_name = "macos-x64"
-link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_mac-x64.zip"
+icon = "apple"
+nightly_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_mac-x64.zip"
 
-[[params.downloads_nightly]]
-platform = "macOS ARM64 (M1 Macs)"
+[[params.downloads.platforms]]
+platform_name = "macOS ARM64 (M1 Macs)"
 job_name = "macos-arm64"
-link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_mac-arm64.zip"
+icon = "apple"
+nightly_link = "https://nightly.link/doukutsu-rs/doukutsu-rs/workflows/ci/master/doukutsu-rs_mac-arm64.zip"
+
+[[params.downloads.platforms]]
+# platform_id is set for platforms for which there are no nightly builds, but stable builds are available.
+platform_id = "horizon"
+no_prebuilts = true
+platform_name = "Nintendo Switch"
+icon = "nintendo-switch"
 
 
 [privacy]

@@ -213,3 +213,12 @@ code {
     background: darken($grey-darker, 4);
   }
 }
+
+.card-header-title {
+  .icon {
+    font-size: xx-large;
+    margin: 0.25em;
+    height: 1em;
+    width: 1em;
+  }
+}

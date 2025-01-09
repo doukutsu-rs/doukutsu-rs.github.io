@@ -59,92 +59,136 @@
       </div>
     </section>
 
-    <section class="section" id="downloads">
+
+   <section class="section" id="downloads">
       <div class="container">
         <h2 class="mb-5">Downloads</h2>
 
-        <h3>Nightly</h3>
-        <p class="mt-2 mb-5">Fresh doukutsu-rs builds with freeware game data, compiled on each commit of <code>master</code> branch.</p>
+        <div id="downloads-nightly">
+          <h3>Nightly</h3>
+          <p class="mt-2 mb-5">Fresh doukutsu-rs builds, compiled on each commit of <code>master</code> and features branch.</p>
 
-        <div class="columns is-multiline">
-          {{ range .Site.Params.downloads_nightly }}
-            <div class="column is-one-third">
-              <div class="card">
-                <header class="card-header">
-                  <p class="card-header-title">{{ .platform }}</p>
-                </header>
+          <div class="columns is-multiline">
+            {{ range .Site.Params.downloads.platforms }}
+              {{ partial "downloads-section.html" (dict "platform" . "channel" "nightly" "fallback" true) }}
+            {{ end }}
+          </div>
+        </div>
+        <div class="mt-6" id="downloads-stable">
+          <h3>Stable</h3>
+          <p class="mt-2 mb-5">The latest changes and fixes are missing, but in general all features are tested and works fine.</p>
 
-                <div class="card-content">
-                  <div class="content">
-                    {{ if .job_name }}
-                      <div id="info-{{ .job_name }}" class="mb-5">
-                        <strong>Version: </strong>
-                        <span class="version">...</span><br/>
-
-                        <strong>Git commit ID: </strong>
-                        <span class="commit">...</span><br/>
-                      </div>
-                    {{ end }}
-
-                    <div class="buttons">
-                      {{ if .link }}
-                        <a class="button is-primary link" href="{{ .link }}">Download</a>
-                      {{ else }}
-                        <p>No prebuilts for this platform yet.</p>
-                      {{ end }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          {{ end }}
+          <div class="columns is-multiline">
+            {{ range .Site.Params.downloads.platforms }}
+              {{ partial "downloads-section.html" (dict "platform" . "channel" "stable" "fallback" false) }}
+            {{ end }}
+          </div>
         </div>
       </div>
     </section>
 
     <script>
-      async function setInfo(el, info) {
-        if (el) {
-          const verEl = el.querySelector('.version');
-          if (verEl) {
-            verEl.innerText = info.version
-          }
+      async function setInfo(container, info) {
+        if (!container) {
+          return;
+        }
 
-          const commEl = el.querySelector('.commit');
-          if (commEl) {
-            commEl.innerHTML = "<code>" + info.commit.slice(0, 7) + "</code>";
-          }
+        const versionEl = container.querySelector('.info .version');
+        if (versionEl) {
+          versionEl.innerText = info.version
+        }
 
-          const linkEl = el.parentNode.querySelector('.link');
-          if (linkEl) {
-            linkEl.href = info.link;
-          }
+        const commitEl = container.querySelector('.info .commit');
+        if (commitEl && info.commit) {
+          commitEl.innerHTML = '<code>' + info.commit.slice(0, 7) + '</code>';
+        } else if (commitEl) {
+          commitEl.parentNode.remove();
+        }
+
+        const dateEl = container.querySelector('.info .date');
+        if (dateEl && info.date) {
+          dateEl.innerHTML = (new Date(info.date * 1000)).toLocaleDateString('{{ .Site.LanguageCode }}', {
+            year: "numeric",
+            month: "long",
+            day: "2-digit",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric",
+            //timeZoneName: "short"
+          });
+        }
+
+        const linkEl = container.querySelector('.link');
+        if (linkEl) {
+          linkEl.classList.remove("is-loading");
+
+          linkEl.href = info.link;
+          linkEl.textContent = "Download";
         }
       }
-      
-      (async() => {
-        const req = await fetch('{{ .Site.Params.metadata.nightly.link }}', {
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        const data = await req.json();
 
-        for (const platform in data) {
-          const info = data[platform];
-          if (info.version !== undefined) {
-            const el = document.getElementById(`info-${platform}`);
+      async function setFail(channel, msg) {
+        const channelContainer = document.getElementById(`downloads-${channel}`);
+        const blocks = channelContainer.querySelectorAll('.content');
 
-            setInfo(el, info);
-          } else {
+        if (!msg) {
+          msg = "Failed to fetch direct download link."
+        }
+
+        for (const block of blocks) {
+          block.innerHTML = String.raw`<p>${msg}</p>`;
+        }
+      }
+
+      async function fetchBuilds(channel, link, fallback = false, failMsg = null) {
+        try {
+          const req = await fetch(link, {
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          const data = await req.json();
+          console.log(data);
+
+          for (const platform in data) {
+            const info = data[platform];
+            console.log(info);
+            if (info.version !== undefined) {
+              const container = document.getElementById(`downloads-${channel}-${platform}`);
+
+              await setInfo(container, info);
+              continue;
+            }
+
             for (const arch in info) {
               const archInfo = info[arch];
-              const el = document.getElementById(`info-${platform}-${arch}`);
+              const container = document.getElementById(`downloads-${channel}-${platform}-${arch}`);
 
-              setInfo(el, archInfo);
+              await setInfo(container, archInfo);
             }
           }
+        } catch (ex) {
+          console.error(`Failed to fetch builds for '${channel}' channel.`);
+          console.error(ex);
+
+          if (!fallback) {
+            await setFail(channel, failMsg);
+          }
+
+          return;
         }
+
+
+      }
+
+      (async() => {
+        await fetchBuilds('nightly', '{{ .Site.Params.downloads.nightly.metadata }}', true);
+        await fetchBuilds(
+          'stable',
+          '{{ .Site.Params.downloads.stable.metadata }}',
+          false,
+          'Failed to fetch a direct download link. Check out the releases <a class="link" href="{{ .Site.Params.downloads.stable.fail_page }}">download page</a>.');
       })();
     </script>
 

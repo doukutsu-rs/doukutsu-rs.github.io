@@ -4,7 +4,9 @@
 <meta name="MobileOptimized" content="320" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-{{ with.Description }}<meta name="description" content="{{ .Description }}" />{{ end }}
+{{ with.Description }}
+<meta name="description" content="{{ .Description }}" />
+{{ end }}
 <meta name="keywords" content="{{ if .Keywords }}{{ range.Keywords }}{{ . }},
 {{ end }}{{else if isset .Params "tags" }}{{ range.Params.tags }}{{ . }},
 {{ end }}{{ end }}">
