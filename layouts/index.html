@@ -66,7 +66,7 @@
 
         <div id="downloads-nightly">
           <h3>Nightly</h3>
-          <p class="mt-2 mb-5">Fresh doukutsu-rs builds, compiled on each commit of <code>master</code> and features branch.</p>
+          <p class="mt-2 mb-5">Fresh doukutsu-rs builds, compiled on each commit of <code>master</code> branch.</p>
 
           <div class="columns is-multiline">
             {{ range .Site.Params.downloads.platforms }}
@@ -76,7 +76,7 @@
         </div>
         <div class="mt-6" id="downloads-stable">
           <h3>Stable</h3>
-          <p class="mt-2 mb-5">The latest changes and fixes are missing, but in general all features are tested and works fine.</p>
+          <p class="mt-2 mb-5">The latest changes and fixes are missing, but in general all features are tested and work fine.</p>
 
           <div class="columns is-multiline">
             {{ range .Site.Params.downloads.platforms }}
@@ -153,7 +153,6 @@
 
           for (const platform in data) {
             const info = data[platform];
-            console.log(info);
             if (info.version !== undefined) {
               const container = document.getElementById(`downloads-${channel}-${platform}`);
 
@@ -178,8 +177,6 @@
 
           return;
         }
-
-
       }
 
       (async() => {
