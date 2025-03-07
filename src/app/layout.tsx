@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "doukutsu-rs - Cave Story Engine Reimplementation",
   description:
     "A fully playable re-implementation of the Cave Story (Doukutsu Monogatari) engine written in Rust.",
+  themeColor: "#f54a00",
 };
 
 export default function RootLayout({
@@ -31,7 +32,9 @@ export default function RootLayout({
           <ReactQueryProvider>
             <div className="flex flex-col min-h-screen">
               <Header />
-              <main className="w-full flex flex-1 flex-col items-center flex-nowrap">{children}</main>
+              <main className="w-full flex flex-1 flex-col items-center flex-nowrap">
+                {children}
+              </main>
               <Footer />
             </div>
           </ReactQueryProvider>

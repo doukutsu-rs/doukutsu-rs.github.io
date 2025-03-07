@@ -1,7 +1,14 @@
 import { DownloadsContent } from "@/app/downloads/components/downloads-content";
 import { Hero, HeroSubtitle, HeroTitle } from "@/components/hero";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Downloads - doukutsu-rs",
+  description:
+    'Fearlessly shilling d-rs to people who didn\'t ask. Click here to experience "Cave Story: Definitive Edition" now!',
+};
 
 export default function DownloadsPage() {
   return (
