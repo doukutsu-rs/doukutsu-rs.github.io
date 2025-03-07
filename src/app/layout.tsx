@@ -1,10 +1,10 @@
-import type React from "react";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ReactQueryProvider } from "@/lib/react-query";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-import { ReactQueryProvider } from "@/lib/react-query";
-import { ThemeProvider } from "@/components/theme-provider";
+import type React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   description:
     "A fully playable re-implementation of the Cave Story (Doukutsu Monogatari) engine written in Rust.",
   themeColor: "#f54a00",
+  metadataBase: new URL("https://doukutsu.rs"),
 };
 
 export default function RootLayout({
