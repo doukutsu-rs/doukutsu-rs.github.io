@@ -1,0 +1,7 @@
+- We have all shadcn/ui components installed and ready to use.
+- Please try to not repeat tailwind classes in your code. Make separate components for repeated classes.
+- Use `interface` instead of `type` for defining types.
+- Prefer `function` over arrow functions, unless you're using it as a callback.
+- Use double quotes for strings, imports and etc., unless it improves readability.
+- We're using Tailwind CSS v4.
+- Use `size-X` over `w-X h-X` for sizing elements.
