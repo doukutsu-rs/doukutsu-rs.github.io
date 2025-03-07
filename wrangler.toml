@@ -1,4 +1,4 @@
 name = "doukutsu-rs"
 compatibility_date = "2024-11-11"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = ".vercel/output/static"
+pages_build_output_dir = "out"
