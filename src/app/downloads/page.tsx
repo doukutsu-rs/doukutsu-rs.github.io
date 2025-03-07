@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Downloads - doukutsu-rs",
   description:
     'Fearlessly shilling d-rs to people who didn\'t ask. Click here to experience "Cave Story: Definitive Edition" now!',
+  twitter: {
+    card: "summary",
+  },
 };
 
 export default function DownloadsPage() {
