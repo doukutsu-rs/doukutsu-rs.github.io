@@ -19,11 +19,15 @@ export async function generateMetadata(props: {
   }
 
   return {
-    title: post.frontmatter.title,
-    description: post.frontmatter.excerpt || post.frontmatter.title,
+    title: `${post.frontmatter.title} - doukutsu-rs blog`,
+    description: post.frontmatter.excerpt,
     openGraph: post.frontmatter.coverImage
       ? {
-          images: [{ url: post.frontmatter.coverImage }],
+          images: [
+            {
+              url: post.frontmatter.coverImage ?? "/img/blog_placeholder.webp",
+            },
+          ],
         }
       : undefined,
   };
