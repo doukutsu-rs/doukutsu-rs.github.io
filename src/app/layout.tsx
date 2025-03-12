@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     "A fully playable re-implementation of the Cave Story (Doukutsu Monogatari) engine written in Rust.",
   themeColor: "#f54a00",
   metadataBase: new URL("https://doukutsu.rs"),
+  verification: {
+    google: "A4uBK-Sjh3en0Ur18AlA3cOcLajrxsrFBv-cd61dOmM",
+  },
 };
 
 export default function RootLayout({
