@@ -102,7 +102,7 @@ export function ScreenshotGallery({ screenshots }: ScreenshotGalleryProps) {
             onKeyDown={handleKeyDown}
           >
             <div className="relative flex flex-col h-screen">
-              <DialogTitle className="absolute py-4 me-8 text-sm font-normal z-50 bg-gradient-to-b from-gray-950/80 to-transparent w-full">
+              <DialogTitle className="absolute py-4 pr-10 me-8 text-sm font-normal z-50 bg-gradient-to-b from-gray-950/80 to-transparent w-full">
                 {screenshots[currentIndex]?.alt}
 
                 <DialogPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6">
