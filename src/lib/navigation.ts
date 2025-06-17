@@ -1,4 +1,4 @@
-import { DOCS_URL } from "@/lib/constants";
+import { DOCS_URL, FAQ_URL } from "@/lib/constants";
 
 export interface NavItem {
   href: string;
@@ -22,6 +22,11 @@ export const mainNavItems: NavItem[] = [
   {
     href: DOCS_URL,
     label: "Documentation",
+    external: true,
+  },
+  {
+    href: FAQ_URL,
+    label: "FAQ",
     external: true,
   },
 ];
