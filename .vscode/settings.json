@@ -1,4 +1,10 @@
 {
   "typescript.preferences.preferTypeOnlyAutoImports": true,
-  "tailwindCSS.classAttributes": ["class", "className", "ngClass", ".*Styles.*"]
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    ".*Styles.*"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
