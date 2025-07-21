@@ -15,6 +15,7 @@ import {
   Gauge,
   Lightbulb,
   Maximize,
+  type createLucideIcon
 } from "lucide-react";
 import Image from "next-image-export-optimizer";
 import Link from "next/link";
@@ -90,12 +91,14 @@ function HeroSection() {
 function FeatureCard({
   title,
   description,
-  icon,
+  iconComponent,
 }: {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  iconComponent: ReturnType<typeof createLucideIcon>;
 }) {
+  const Icon = iconComponent;
+
   return (
     <Card
       className={
@@ -104,15 +107,13 @@ function FeatureCard({
     >
       <div className="relative z-10 p-6">
         <div className="mb-4 flex items-center gap-3">
-          <div className="rounded-lg bg-blue-500/20 p-2 text-blue-500">
-            {icon}
-          </div>
-          <h3 className="text-xl font-bold tracking-tight text-blue-900 dark:text-white">
+          <Icon className="size-5 lg:size-9 text-blue-500 dark:text-blue-300" />
+          <h3 className="text-xl lg:text-3xl font-bold tracking-tight text-blue-900 dark:text-white">
             {title}
           </h3>
         </div>
         <CardContent className="p-0">
-          <p className="text-sm text-stone-950/80 dark:text-white/80">
+          <p className="text-sm lg:text-lg text-stone-950/80 dark:text-white/80">
             {description}
           </p>
         </CardContent>
@@ -134,36 +135,36 @@ function FeaturesSection() {
             enjoy the 2004 indie classic like a modern game.
           </p>
         </div>
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
           <FeatureCard
             title="Smooth Motion"
             description="Game logic is decoupled from frame rate with motion interpolation, looking better on modern high refresh rate desktop and mobile displays."
-            icon={<Gauge className="size-5" />}
+            iconComponent={Gauge}
           />
           <FeatureCard
             title="Flexible Resolution"
             description="The game resolution is not fixed, allowing for better compatibility with different screens."
-            icon={<Maximize className="size-5" />}
+            iconComponent={Maximize}
           />
           <FeatureCard
             title="Multiple Game Speeds"
             description="Switch between 50tps/60tps speeds to match original freeware or Cave Story+ versions."
-            icon={<Clock className="size-5" />}
+            iconComponent={Clock}
           />
           <FeatureCard
             title="Universal Compatibility"
             description="A single executable supports multiple game versions - original freeware, Cave Story+, and Nintendo Switch version."
-            icon={<Box className="size-5" />}
+            iconComponent={Box}
           />
           <FeatureCard
             title="Skip Cutscenes"
             description="Supports skipping cutscenes, a feature previously exclusive to the Switch port."
-            icon={<FastForward className="size-5" />}
+            iconComponent={FastForward}
           />
           <FeatureCard
             title="Enhanced Lighting"
             description="Enjoy lighting effects that are slightly fancier than those in the Switch version."
-            icon={<Lightbulb className="size-5" />}
+            iconComponent={Lightbulb}
           />
         </div>
       </div>
@@ -293,7 +294,7 @@ async function BlogPostsSection() {
         <div className="flex flex-col gap-6 max-w-5xl mx-auto">
           {blogPosts.map((post, index) => (
             <Link href={`/blog/${post.slug}`} key={index}>
-              <Card className="bg-white/50 border-gray-200 hover:bg-white/70 dark:bg-black/50 dark:border-gray-800 dark:hover:bg-black/70 transition-colors dark:text-white overflow-hidden cursor-pointer">
+              <Card className="bg-white/50 border-gray-200 hover:bg-white/70 dark:bg-black/50 dark:border-gray-800 dark:hover:bg-black/70 hover:border-orange-400 dark:hover:border-orange-700 transition-shadow dark:text-white overflow-hidden cursor-pointer hover:shadow-lg">
                 <CardContent className="p-6">
                   <p className="text-sm text-orange-600 dark:text-orange-500 mb-2">
                     {new Date(post.frontmatter.date).toLocaleDateString(
@@ -324,7 +325,7 @@ async function BlogPostsSection() {
 
         <div className="flex justify-center mt-10">
           <Link href="/blog">
-            <Button variant="outline">View All Posts</Button>
+            <Button variant="default" size="lg">View All Posts</Button>
           </Link>
         </div>
       </div>
