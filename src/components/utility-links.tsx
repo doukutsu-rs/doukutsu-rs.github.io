@@ -17,16 +17,17 @@ interface UtilityLinkProps {
 function IconLink({ icon, label, href, onClick }: UtilityLinkProps) {
   if (href) {
     return (
-      <Link href={href} target="_blank" rel="noopener noreferrer">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-white hover:text-orange-300 hover:bg-orange-900"
-        >
+      <Button
+        asChild
+        variant="ghost"
+        size="icon"
+        className="text-white hover:text-orange-300 hover:bg-orange-900"
+      >
+        <Link href={href} target="_blank" rel="noopener noreferrer">
           {icon}
           <span className="sr-only">{label}</span>
-        </Button>
-      </Link>
+        </Link>
+      </Button>
     );
   }
 
@@ -35,7 +36,7 @@ function IconLink({ icon, label, href, onClick }: UtilityLinkProps) {
       variant="ghost"
       size="icon"
       onClick={onClick}
-      className="text-white hover:text-orange-300 hover:bg-orange-900"
+      className="text-white hover:text-orange-300 hover:bg-orange-900 cursor-pointer"
     >
       {icon}
       <span className="sr-only">{label}</span>

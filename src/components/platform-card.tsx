@@ -117,20 +117,21 @@ export function PlatformCard({ platform, setupGuideLinks }: PlatformCardProps) {
                 {getArchName(platform.type, arch.type)}
               </span>
               {arch.downloadUrl && (
-                <Link
-                  href={arch.downloadUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
+                <Button
                     size="sm"
                     variant="outline"
                     className="flex items-center gap-2"
+                    asChild
+                  >
+                  <Link
+                    href={arch.downloadUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <Download className="size-4" />
                     Download
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               )}
             </div>
           ))}
@@ -147,7 +148,7 @@ export function PlatformCard({ platform, setupGuideLinks }: PlatformCardProps) {
           <Link href={setupGuide} className="w-full">
             <Button
               variant="ghost"
-              className="w-full flex items-center gap-2 bg-gray-200/50 dark:bg-gray-900/50 text-gray-600 hover:text-gray-700 hover:bg-gray-200 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-900"
+              className="w-full flex items-center gap-2 bg-gray-200/50 dark:bg-gray-900/50 text-gray-600 hover:text-gray-700 hover:bg-gray-200 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-900 cursor-pointer"
             >
               <ExternalLink className="size-4" />
               Setup Guide

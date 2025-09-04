@@ -57,7 +57,7 @@ function CategoryFilters({
             key={category.id}
             variant={activeCategory === category.id ? "secondary" : "ghost"}
             className={cn(
-              "text-sm whitespace-nowrap transition-colors",
+              "text-sm whitespace-nowrap transition-colors cursor-pointer",
               activeCategory === category.id
                 ? "bg-orange-700/50 text-white hover:bg-orange-700/70"
                 : "text-orange-900 dark:text-gray-300 hover:text-white hover:bg-orange-800/30"

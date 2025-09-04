@@ -39,18 +39,19 @@ function HeroButton({
   variant: keyof typeof heroButtonStyles;
 }) {
   return (
-    <Link href={href}>
-      <Button
-        className={cn(
-          "flex gap-2 min-w-[160px] transition-colors",
-          heroButtonStyles[variant],
-          className
-        )}
-        variant="ghost"
-      >
-        {children}
-      </Button>
-    </Link>
+    <Button
+      asChild
+      className={cn(
+        "flex gap-2 min-w-[160px] transition-colors",
+        heroButtonStyles[variant],
+        className
+      )}
+      variant="ghost"
+    >
+      <Link href={href}>
+      {children}
+      </Link>
+    </Button>
   );
 }
 
@@ -324,9 +325,9 @@ async function BlogPostsSection() {
         </div>
 
         <div className="flex justify-center mt-10">
-          <Link href="/blog">
-            <Button variant="default" size="lg">View All Posts</Button>
-          </Link>
+          <Button asChild variant="default" size="lg">
+            <Link href="/blog">View All Posts</Link>
+          </Button>
         </div>
       </div>
     </section>
