@@ -16,5 +16,6 @@ export const BLOG_CATEGORIES = [
 export const SETUP_GUIDE_LINKS = {
   windows: "https://doukutsu-rs.gitbook.io/docs/setup-guide/windows",
   linux: "https://doukutsu-rs.gitbook.io/docs/setup-guide/linux",
-  macos: "https://doukutsu-rs.gitbook.io/docs/setup-guide/macos"
+  macos: "https://doukutsu-rs.gitbook.io/docs/setup-guide/macos",
+  android: "https://doukutsu-rs.gitbook.io/docs/setup-guide/android"
 };
