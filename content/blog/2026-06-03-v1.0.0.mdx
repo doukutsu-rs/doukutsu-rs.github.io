@@ -1,0 +1,61 @@
+---
+title: "doukutsu-rs 1.0.0: \"Android controller support when?\""
+date: "2026-06-03"
+excerpt: "Now. The answer is now. We also dropped the beta tag and untangled the mess that kept it from happening for four years."
+category: "release"
+image: "/img/blog/crabsue2.webp"
+---
+
+doukutsu-rs 1.0.0 is out, and it leads with the question we've been getting since the very first Android builds back in early 2022: **controller support on Android actually works now.**
+
+## Why this took so long
+
+The honest answer is that getting doukutsu-rs onto Android in the first place was held together with tape. To make it work, we'd ended up maintaining our own forks of several of the Rust libraries we build on, and keeping those forks current was painful enough that every push toward controller support stalled out and burned people out. Some of that is our own skill issue, sure - but the reality is that to hit our goals we had to carry those patches ourselves.
+
+The way out came from contributor [@yyny](https://github.com/yyny), who rebuilt the Android backend on **SDL2** instead of fighting the existing stack. To be clear, this isn't a magic clean slate - Android still carries plenty of tech debt - but it got us off the treadmill that kept defeating us, and it finally unblocked gamepads.
+
+On top of that port, maintainer [@biroder](https://github.com/biroder) backported the finishing touches that got the Android build ready to ship: co-op multiplayer working (one screen, two controllers, just like the Switch version), basic menu scrolling, fixed multitouch handling, and a restored forced-landscape mode with display insets.
+
+## The dependency tangle, for the curious
+
+If you like the gory details: this whole journey actually began back in 2024 as an attempt to port doukutsu-rs to iOS - the same effort that first tried to bump us to 1.0.0. iOS isn't ready yet, but the backend rework it kicked off is what eventually made the Android rebuild possible.
+
+The trouble was the windowing and GL stack. `glutin` (still actively maintained, to be fair) put us in a genuine bind: supporting iOS meant forking an old version, while keeping current with `winit` meant moving to a new one - and we couldn't have both. Meanwhile `winit`'s API had changed heavily, and the input improvements we wanted on Android (better keyboard and gamepad handling, on top of a patch we already needed so the volume buttons didn't break) landed between winit 0.28 and 0.30 - exactly the versions `glutin` was keeping us away from. Under all of that, the `ndk` crates we depended on were unmaintained and would have needed migrating to the newer `android-activity` stack.
+
+Controller support ran straight into this wall: an earlier attempt wired up Android's game controller library (Paddleboat), but it couldn't go anywhere without untangling the whole knot first. The more we dug, the more work each migration surfaced, and eventually we gave up on that path.
+
+Rebuilding on SDL2 cut past all of it at once. It's a little funny that the fix was reaching for a decades-old C library - but Cargo's ecosystem churns a lot like npm's, and the GUI/windowing/GL corner has been especially unstable for us, so over the years we've drifted toward battle-tested C dependencies for the load-bearing parts. We're on rock-solid SDL2 now, and we're already working toward dropping `cpal` too. (We still keep a fork of it, but that's mostly for platform patches we need - like our Nintendo Switch homebrew port - rather than anything wrong upstream.)
+
+## Goodbye, beta label
+
+While we were at it, we fixed our other long-running embarrassment: the version number.
+
+If you've followed our releases, you know the versioning has been a mess - we'd bent the rules for years just to keep package managers happy, and got stuck in a loop of lockstep minor versions and a beta tag that never went away. The reality is the game has had full feature parity since `0.99.0-beta4`, and everything since has been bug fixes and accuracy work. The engine is stable and the game is complete, so the version number should say so.
+
+From here on we follow plain semantic versioning, starting with 1.0.0.
+
+## Everything else in this release
+
+- **Native Wayland support** on Linux, plus new command-line arguments to set the initial window size and fullscreen state.
+- **Translations of different data types** are now supported, along with a fix for getting stuck in non-Latin IMEs.
+- **Smoother Organya playback** with declicking between measures, and a fix for music fading out too quickly.
+- **Lots of accuracy work** across bosses and NPCs to bring the engine even closer to the original.
+- Fixes for software rendering on SDL2, the app icon being changed on macOS, the Discord activity getting stuck, and several CS+ data issues like soundtracks failing to load.
+
+For the full breakdown of every change, see the [1.0.0 release notes](https://github.com/doukutsu-rs/doukutsu-rs/releases/tag/1.0.0).
+
+## What's next
+
+1.0.0 is an interim release by design: we wanted the big, long-requested feature in players' hands now, rather than holding it back for the larger work still in progress.
+
+The one part of that work worth flagging is a change that will eventually require OpenGL 3.0. Today we claim OpenGL 2.1 while quietly leaning on extensions that happen to be widely available, and we'd rather be upfront about the bump - but we want to land a few more changes before we risk breaking anyone's setup, so it's baking a little longer. (If you like following along, it lives on the [`feature/render-refactor`](https://github.com/doukutsu-rs/doukutsu-rs/commits/feature/render-refactor) branch.)
+
+We're also working toward support for the 2026 Steam release of Cave Story+ - you can follow that effort in [issue #356](https://github.com/doukutsu-rs/doukutsu-rs/issues/356). And we've got a couple of surprises beyond that, but the big one we'll name now is variable refresh rate (VRR) support, along with frame-pacing improvements, aimed at a near-future release.
+
+## Thank you
+
+Huge thanks to everyone who contributed code, accuracy research, translations, and bug reports - with special thanks to [@yyny](https://github.com/yyny) for the SDL2 port that made all of this possible, and [@biroder](https://github.com/biroder) for getting the Android release over the line. A warm welcome to the rest of our newest contributors too: [@OpatrilPeter](https://github.com/OpatrilPeter), [@TC999](https://github.com/TC999), [@liquidev](https://github.com/liquidev), [@razziefox](https://github.com/razziefox), and [@vrmiguel](https://github.com/vrmiguel).
+
+Grab the 1.0.0 build from the [Downloads](/downloads) page, come hang out on [Discord](https://discord.gg/k8fYBDS), and check out our [GitHub](https://github.com/doukutsu-rs/doukutsu-rs) if you want to help build what comes next.
+
+*Header artwork by [AppleHair](https://github.com/AppleHair), the artist behind our crabby Sue icon. Thank you!*
