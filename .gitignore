@@ -28,6 +28,7 @@ next-env.d.ts
 
 # Cloudflare Wrangler
 .wrangler/
+.open-next/
 
 # Optional: Exclude draft blog posts
 /content/blog/drafts/
@@ -36,3 +37,5 @@ next-env.d.ts
 nextImageExportOptimizer/
 nextImageExportOptimizer/*
 next-image-export-optimizer-hashes.json
+
+.DS_Store
