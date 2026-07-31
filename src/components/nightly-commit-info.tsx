@@ -27,7 +27,7 @@ export function NightlyCommitInfo({
       <div className="flex flex-col md:flex-row justify-between gap-4">
         <div>
           <h3 className="text-lg font-bold mb-2">Nightly Build {buildId}</h3>
-          <p className="text-sm text-muted-foreground mb-2">
+          <p className="text-sm text-muted-foreground whitespace-pre-line mb-2">
             {commitInfo.message}
           </p>
         </div>
