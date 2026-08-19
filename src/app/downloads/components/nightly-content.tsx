@@ -99,7 +99,10 @@ function NightlyContentView({
       </Alert>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
-        {selectedBuild.platforms.map((platform) => (
+        {selectedBuild.platforms.sort((a, b) => {
+          if (a.experimental && b.experimental) return 0;
+          return a.experimental ? 1 : -1;
+        }).map((platform) => (
           <PlatformCard
             key={platform.type}
             platform={platform}

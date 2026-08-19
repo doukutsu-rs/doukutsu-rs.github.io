@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import type { DownloadsData, Platform, PlatformType } from "@/types/downloads";
 import {
+  IconAlertTriangle,
   IconBrandAndroid,
   IconBrandApple,
   IconBrandUbuntu,
@@ -17,6 +18,7 @@ import {
 } from "@tabler/icons-react";
 import { Download, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 
 interface PlatformCardProps {
   platform: Platform;
@@ -107,6 +109,12 @@ export function PlatformCard({ platform, setupGuideLinks }: PlatformCardProps) {
         <CardTitle className={`flex items-center gap-2 py-3`}>
           <Icon className="size-4" />
           {platformName}
+          {platform.experimental && (
+            <Badge variant="secondary">
+              <IconAlertTriangle/>
+              Experimental
+            </Badge>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent className="flex-1">
