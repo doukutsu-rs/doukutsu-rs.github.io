@@ -7,7 +7,7 @@ import { VersionSelector } from "@/components/version-selector";
 import { useAllDownloadsData, useGitHubCommitId } from "@/hooks/use-downloads";
 import { SETUP_GUIDE_LINKS } from "@/lib/constants";
 import type { CommitInfo, Release } from "@/types/downloads";
-import { AlertTriangle, Clock } from "lucide-react";
+import { AlertTriangle, Clock, Divide } from "lucide-react";
 import { useMemo, useState } from "react";
 import { DownloadsSkeleton } from "./downloads-skeleton";
 import { LoadingError } from "./loading-error";
@@ -68,6 +68,11 @@ function NightlyContentView({
     return <div>No nightly builds available</div>;
   }
 
+  const platforms = selectedBuild.platforms.sort((a, b) => {
+    if (a.experimental && b.experimental) return 0;
+    return a.experimental ? 1 : -1;
+  });
+
   return (
     <div>
       <div className="flex flex-col md:flex-row gap-4 mb-6 justify-between">
@@ -98,18 +103,17 @@ function NightlyContentView({
         </AlertDescription>
       </Alert>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
-        {selectedBuild.platforms.sort((a, b) => {
-          if (a.experimental && b.experimental) return 0;
-          return a.experimental ? 1 : -1;
-        }).map((platform) => (
-          <PlatformCard
-            key={platform.type}
-            platform={platform}
-            setupGuideLinks={SETUP_GUIDE_LINKS}
-          />
-        ))}
-      </div>
+      {platforms?.length > 0 && (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+          {platforms.map((platform, idx) => (
+            <PlatformCard
+              key={idx}
+              platform={platform}
+              setupGuideLinks={SETUP_GUIDE_LINKS}
+            />
+          ))}
+        </div>
+      )}
 
       <NightlyCommitInfo
         buildId={selectedBuild.version}

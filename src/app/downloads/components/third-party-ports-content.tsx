@@ -11,32 +11,32 @@ import { useMemo, useState } from "react";
 import { DownloadsSkeleton } from "./downloads-skeleton";
 import { LoadingError } from "./loading-error";
 
-interface ExperimentalPortsContentProps {
+interface ThirdPartyPortContentProps {
   thirdPartyPorts: Platform[];
   data: Release[];
 }
 
-function ExperimentalPortsContentView({
+function ThirdPartyPortsContentView({
   thirdPartyPorts,
   data,
-}: ExperimentalPortsContentProps) {
-  // Find versions that have experimental platforms
-  const versionsWithExperimentalPorts = useMemo(() => {
-    if (!data?.length) return [];
+}: ThirdPartyPortContentProps) {
+  // Find versions that have platforms maintained by third-party contributors
+  const versionsWithThirdPartylPorts = useMemo(() => {
+    if (!data?.length || !thirdPartyPorts?.length) return [];
 
     return data
       .filter((release) =>
-        release.platforms.some((platform) => platform.experimental)
+        release.platforms.some((platform) => thirdPartyPorts.includes(platform))
       )
       .map((release) => ({
         version: release.version,
       }));
   }, [data]);
 
-  // Set initial version to the first one with experimental ports
+  // Set initial version to the first one with third-party ports
   const [selectedVersion, setSelectedVersion] = useState<string>(
-    versionsWithExperimentalPorts.length > 0
-      ? versionsWithExperimentalPorts[0].version
+    versionsWithThirdPartylPorts.length > 0
+      ? versionsWithThirdPartylPorts[0].version
       : ""
   );
 
@@ -45,22 +45,15 @@ function ExperimentalPortsContentView({
     [selectedVersion, data]
   );
 
-  // Find experimental platforms for the selected version
-  const selectedExperimentalPlatforms = useMemo(() => {
-    if (!selectedVersion || !data?.length) return [];
-
-    if (!selectedRelease) return [];
-
-    return selectedRelease.platforms.filter(
-      (platform) => platform.experimental
-    );
-  }, [selectedVersion, data]);
+  if (!selectedRelease) {
+    return <div>No builds for 3rd-party ports available</div>;
+  }
 
   return (
     <div className="space-y-8">
       <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <VersionSelector
-          versions={versionsWithExperimentalPorts}
+          versions={versionsWithThirdPartylPorts}
           selectedVersion={selectedVersion}
           onVersionChange={setSelectedVersion}
         />
@@ -76,37 +69,8 @@ function ExperimentalPortsContentView({
         )}
       </div>
 
-      <Alert>
-        <AlertTriangle className="size-4" />
-        <AlertTitle>Experimental Ports</AlertTitle>
-        <AlertDescription>
-          These ports are experimental and may not have the same level of
-          stability or feature completeness as the main releases.
-        </AlertDescription>
-      </Alert>
-
-      {versionsWithExperimentalPorts.length > 0 && (
-        <div>
-          <h3 className="text-xl font-bold mb-4">
-            Official Experimental Ports
-          </h3>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {selectedExperimentalPlatforms.map((platform, idx) => (
-              <PlatformCard
-                key={idx}
-                platform={platform}
-                setupGuideLinks={SETUP_GUIDE_LINKS}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
       {thirdPartyPorts?.length > 0 && (
         <div>
-          <h3 className="text-xl font-bold mb-4">Third-Party Ports</h3>
-
           <Alert variant="destructive" className="mb-6">
             <AlertTriangle className="size-4" />
             <AlertTitle>Third-Party Port</AlertTitle>
@@ -132,7 +96,8 @@ function ExperimentalPortsContentView({
   );
 }
 
-export function ExperimentalPortsContent() {
+export function ThirdPartyPortsContent() {
+  // TODO: add support for the `third-party` channel
   const { data, isLoading, error } = useDownloadsData("stable");
 
   // display a loading skeleton
@@ -145,5 +110,5 @@ export function ExperimentalPortsContent() {
     return <LoadingError />;
   }
 
-  return <ExperimentalPortsContentView data={data} thirdPartyPorts={[]} />;
+  return <ThirdPartyPortsContentView data={data} thirdPartyPorts={[]} />;
 }
